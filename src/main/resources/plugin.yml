@@ -1,0 +1,6 @@
+name: SDJ
+version: '0.1.0'
+main: me.rarehyperion.simpledoublejump.SDJ
+api-version: '1.21'
+load: STARTUP
+authors: [ RareHyperIon ]

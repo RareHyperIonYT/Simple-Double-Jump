@@ -1,4 +1,4 @@
-package me.rarehyperion.simpledoublejump.events;
+package me.rarehyperion.simpledoublejump.api.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -10,16 +10,16 @@ public class DoubleJumpEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled = false;
 
-    private final Reason reason;
+    private final JumpReason reason;
     private final ItemStack item;
 
-    public DoubleJumpEvent(final Player player, final Reason reason, final ItemStack item) {
+    public DoubleJumpEvent(final Player player, final JumpReason reason, final ItemStack item) {
         super(player);
         this.reason = reason;
         this.item = item;
     }
 
-    public Reason getReason() {
+    public JumpReason getReason() {
         return this.reason;
     }
 

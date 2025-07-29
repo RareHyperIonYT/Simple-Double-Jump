@@ -1,5 +1,6 @@
 package me.rarehyperion.simpledoublejump.managers;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,8 +39,34 @@ public class LanguageManager {
         this.config = YamlConfiguration.loadConfiguration(this.file);
     }
 
+    public String getReloadMessage() {
+        return this.get("reload", "&aConfiguration successfully reloaded!");
+    }
+
+    public String getPermissionMessage() {
+        return this.get("no-permission", "&cYou don't have permission to run this command.");
+    }
+
+    public String getCooldownMessage() {
+        return this.get("cooldown", null);
+    }
+
+    public String getInsufficientHungerMessage() {
+        return this.get("insufficient-hunger", null);
+    }
+
     public String get(final String key) {
         return this.config.getString(key);
+    }
+
+    public String get(final String key, final String def) {
+        final String str = this.config.getString(key, def);
+        if(str == null) return null;
+        return ChatColor.translateAlternateColorCodes('&', str);
+    }
+
+    public String withPrefix(final String str) {
+        return this.get("prefix", "&b&lSDJ &r") + " " + str;
     }
 
 }

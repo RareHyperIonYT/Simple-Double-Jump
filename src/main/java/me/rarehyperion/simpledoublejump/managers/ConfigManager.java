@@ -7,7 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ConfigManager {
 
     private final JavaPlugin plugin;
-    private FileConfiguration config;
 
     private double horizontalForceMultiplier, verticalVelocity;
     private boolean preserveFallDamage, avoidFlyConflicts;
@@ -19,12 +18,12 @@ public class ConfigManager {
         this.plugin = plugin;
     }
 
-    public void loadConfig() {
+    public void load() {
         this.plugin.saveDefaultConfig();
         this.plugin.reloadConfig();
-        this.config = this.plugin.getConfig();
 
-        final String activationMethodString = this.config.getString("activationMethod", "ALL");
+        final FileConfiguration config = this.plugin.getConfig();
+        final String activationMethodString = config.getString("activationMethod", "ALL");
 
         try {
             this.activationMethod = ActivationMethod.valueOf(activationMethodString.toUpperCase());
@@ -32,14 +31,18 @@ public class ConfigManager {
             this.activationMethod = ActivationMethod.ALL;
         }
 
-        this.preserveFallDamage = this.config.getBoolean("preserveFallDamage", true);
-        this.avoidFlyConflicts = this.config.getBoolean("avoidFlyConflicts", true);
+        this.preserveFallDamage = config.getBoolean("preserveFallDamage", true);
+        this.avoidFlyConflicts = config.getBoolean("avoidFlyConflicts", true);
 
-        this.cooldownTicks = this.config.getInt("jump-settings.cooldown-ticks", 100);
-        this.hungerDrain = this.config.getInt("jump-settings.hunger-drain", 2);
+        this.cooldownTicks = config.getInt("jump-settings.cooldown-ticks", 100);
+        this.hungerDrain = config.getInt("jump-settings.hunger-drain", 2);
 
-        this.horizontalForceMultiplier = this.config.getDouble("jump-settings.horizontal-force-multiplier", 0.42);
-        this.verticalVelocity = this.config.getDouble("jump-settings.vertical-velocity", 0.42);
+        this.horizontalForceMultiplier = config.getDouble("jump-settings.horizontal-force-multiplier", 0.42);
+        this.verticalVelocity = config.getDouble("jump-settings.vertical-velocity", 0.42);
+    }
+
+    public void reload() {
+        this.load();
     }
 
     public boolean shouldPreserveFallDamage() {
@@ -68,10 +71,6 @@ public class ConfigManager {
 
     public ActivationMethod getActivationMethod() {
         return this.activationMethod;
-    }
-
-    public FileConfiguration getConfig() {
-        return this.config;
     }
 
 }

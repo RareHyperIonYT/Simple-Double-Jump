@@ -1,0 +1,5 @@
+reload: "&aConfiguration successfully reloaded!"
+no-permission: "&cYou don't have permission to run this command."
+
+cooldown: "&cYou must wait &e<cooldown>&c seconds before double jumping again!"
+insufficient-hunger: "&cYou're too hungry to double jump."

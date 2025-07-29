@@ -19,12 +19,16 @@ public class DoubleJumpManager {
     private final JavaPlugin plugin;
     private final ConfigManager configManager;
     private final PluginManager pluginManager;
+    private final CooldownManager cooldownManager;
+    private final LanguageManager languageManager;
     private final Set<UUID> primed;
 
-    public DoubleJumpManager(final JavaPlugin plugin, final ConfigManager configManager, final PluginManager pluginManager) {
+    public DoubleJumpManager(final JavaPlugin plugin, final ConfigManager configManager, final LanguageManager languageManager, final CooldownManager cooldownManager, final PluginManager pluginManager) {
         this.plugin = plugin;
         this.configManager = configManager;
         this.pluginManager = pluginManager;
+        this.cooldownManager = cooldownManager;
+        this.languageManager = languageManager;
         this.primed = new HashSet<>();
     }
 
@@ -67,7 +71,7 @@ public class DoubleJumpManager {
             this.primed.add(uuid);
 
             if(this.configManager.shouldPreserveFallDamage()) {
-                // Delay allow flight by 1 tick so fall damage still applies.
+                // Delay allow flight by 1 tick so it's applied after fall damage.
                 Bukkit.getScheduler().runTaskLater(this.plugin,
                         () -> player.setAllowFlight(true), 1L);
             } else {
@@ -90,19 +94,30 @@ public class DoubleJumpManager {
         }
     }
 
-
     public boolean performJump(final Player player, final JumpReason reason) {
-        if(!this.isPrimed(player))
+        if(this.cooldownManager.isOnCooldown(player)) {
+            final String cooldownMessage = this.languageManager.getCooldownMessage();
+            if(cooldownMessage == null) return false;
+            player.sendMessage(cooldownMessage
+                    .replace("<cooldown>", String.format("%.1f", this.cooldownManager.getTimeLeft(player) / 1000.0F)));
             return false;
+        }
 
-        final DoubleJumpEvent doubleJumpEvent = new DoubleJumpEvent(player, JumpReason.NORMAL, null);
+        final DoubleJumpEvent doubleJumpEvent = new DoubleJumpEvent(player, reason, null);
         this.pluginManager.callEvent(doubleJumpEvent);
 
         if(doubleJumpEvent.isCancelled())
             return false;
 
-        // TODO: Check cooldowns.
+        if(player.getFoodLevel() < 6) {
+            final String insufficientHungerMessage = this.languageManager.getInsufficientHungerMessage();
+            if(insufficientHungerMessage == null) return false;
+            player.sendMessage(insufficientHungerMessage);
+            return false;
+        }
+
         this.applyForces(player);
+        this.cooldownManager.cooldown(player);
         this.unprime(player);
         return true;
     }

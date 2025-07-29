@@ -14,12 +14,12 @@ activationMethod: "ALL"
 # API integrations may override these settings.
 jump-settings:
   # Delay between consecutive double jumps (in server ticks; 20 ticks = 1 second).
-  # To disable double jump cooldowns, set this value to 0.
-  cooldown-ticks: 100
+  # To disable double jump cooldowns, set this value to 0 or less.
+  cooldown-ticks: 0
 
   # The amount of hunger points that should be deducted per double jump.
   # 1 point = half a drumstick; set to 0 to disable hunger drain.
-  hunger-drain: 2
+  hunger-drain: 1
 
   # Factor applied to the normalised look vector to compute horizontal velocity.
   # In simpler terms, increasing this value makes you travel farther horizontally.

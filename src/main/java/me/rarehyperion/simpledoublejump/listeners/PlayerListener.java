@@ -37,10 +37,10 @@ public class PlayerListener implements Listener {
         if(args.length == 1) {
             final Player player = event.getPlayer();
 
-            if(!this.jumpManager.isPrimed(player))
+            if(!this.jumpManager.isPrimed(player)) {
                 return;
+            }
 
-            player.setAllowFlight(false);
             this.jumpManager.unprime(player);
         } else if(args.length == 2) {
             final String targetName = args[1];
@@ -54,7 +54,6 @@ public class PlayerListener implements Listener {
                 return;
             }
 
-            player.setAllowFlight(false);
             this.jumpManager.unprime(player);
         }
     }
@@ -77,12 +76,11 @@ public class PlayerListener implements Listener {
     public void onToggleFlight(final PlayerToggleFlightEvent event) {
         final Player player = event.getPlayer();
 
-        if(!this.jumpManager.canDoubleJump(player))
+        if(!this.jumpManager.isPrimed(player) || !this.jumpManager.canDoubleJump(player))
             return;
 
-        if(this.jumpManager.performJump(player, JumpReason.NORMAL)) {
-            event.setCancelled(true);
-        }
+        this.jumpManager.performJump(player, JumpReason.NORMAL);
+        event.setCancelled(true);
     }
 
 }

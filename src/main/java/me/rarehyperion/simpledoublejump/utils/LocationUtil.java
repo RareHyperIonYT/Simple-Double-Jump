@@ -3,7 +3,6 @@ package me.rarehyperion.simpledoublejump.utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 
 public class LocationUtil {
 
@@ -12,6 +11,10 @@ public class LocationUtil {
     public static boolean onGround(final Location location) {
         final double y = location.getY();
 
+        // This may seem confusing, or odd to have in a ground check, but it's actually quite useful.
+        // We are checking if the players Y coordinate follows Minecraft's ground positioning pattern.
+        // So, if the remainder of 'y % GROUND_DIVISOR' isn't 0, then they can't possibly be on the ground.
+        // In other words, this is saving server resources by skipping extra calculations that aren't needed.
         if(Math.abs(y) % GROUND_DIVISOR != 0.0D) {
             return false;
         }
@@ -31,8 +34,7 @@ public class LocationUtil {
 
         for (int checkX = minX; checkX <= maxX; checkX++) {
             for (int checkZ = minZ; checkZ <= maxZ; checkZ++) {
-                final Block block = world.getBlockAt(checkX, groundY, checkZ);
-                final Material type = block.getType();
+                final Material type = world.getBlockAt(checkX, groundY, checkZ).getType();
 
                 if (type != Material.AIR && type.isSolid()) {
                     return true;

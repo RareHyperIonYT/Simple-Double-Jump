@@ -9,7 +9,7 @@ public class ConfigManager {
     private final JavaPlugin plugin;
 
     private double horizontalForceMultiplier, verticalVelocity;
-    private boolean preserveFallDamage, avoidFlyConflicts;
+    private boolean preserveFallDamage, avoidFlyConflicts, hardenedGroundCheck;
     private int cooldownTicks, hungerDrain;
 
     private ActivationMethod activationMethod;
@@ -33,6 +33,7 @@ public class ConfigManager {
 
         this.preserveFallDamage = config.getBoolean("preserveFallDamage", true);
         this.avoidFlyConflicts = config.getBoolean("avoidFlyConflicts", true);
+        this.hardenedGroundCheck = config.getBoolean("hardenedGroundCheck", false);
 
         this.cooldownTicks = config.getInt("jump-settings.cooldown-ticks", 100);
         this.hungerDrain = config.getInt("jump-settings.hunger-drain", 2);
@@ -51,6 +52,10 @@ public class ConfigManager {
 
     public boolean shouldAvoidFlyConflicts() {
         return this.avoidFlyConflicts;
+    }
+
+    public boolean shouldHardenGroundChecks() {
+        return this.hardenedGroundCheck;
     }
 
     public int getCooldownTicks() {

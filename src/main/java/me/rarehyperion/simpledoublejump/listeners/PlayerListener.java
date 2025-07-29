@@ -3,6 +3,7 @@ package me.rarehyperion.simpledoublejump.listeners;
 import me.rarehyperion.simpledoublejump.api.events.JumpReason;
 import me.rarehyperion.simpledoublejump.managers.ConfigManager;
 import me.rarehyperion.simpledoublejump.managers.DoubleJumpManager;
+import me.rarehyperion.simpledoublejump.utils.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -59,10 +60,15 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
+    @SuppressWarnings("deprecation")
     public void onPlayerMove(final PlayerMoveEvent event) {
         final Player player = event.getPlayer();
 
-        if(player.isOnGround()) {
+        final boolean onGround = this.configManager.shouldHardenGroundChecks()
+                ? LocationUtil.onGround(player.getLocation())
+                : player.isOnGround();
+
+        if(onGround) {
             if(player.getAllowFlight())
                 return;
 

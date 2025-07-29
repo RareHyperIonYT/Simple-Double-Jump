@@ -4,6 +4,10 @@ preserveFallDamage: true
 # Prevents conflicts with flying abilities.
 avoidFlyConflicts: true
 
+# Use server-side ground detection instead of trusting client packets.
+# Prevents exploits but may cause slight delays on high-latency connections.
+hardenedGroundCheck: false
+
 # When double jumping should be allowed:
 #   ALL        - Available to everyone.
 #   PERMISSION - Players need a specific permission.

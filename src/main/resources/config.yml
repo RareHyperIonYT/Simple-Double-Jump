@@ -11,7 +11,7 @@ hardenedGroundCheck: false
 # When double jumping should be allowed:
 #   ALL        - Available to everyone.
 #   PERMISSION - Players need a specific permission.
-activationMethod: "ALL"
+activationMethod: "PERMISSION"
 
 # Technical double jump configuration.
 jump-settings:

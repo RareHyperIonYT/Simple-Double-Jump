@@ -4,7 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 
-public class LocationUtil {
+public final class LocationUtil {
 
     private static final double GROUND_DIVISOR = 0.015625D;
 

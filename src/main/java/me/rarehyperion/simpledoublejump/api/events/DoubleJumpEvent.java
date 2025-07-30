@@ -5,6 +5,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.inventory.ItemStack;
 
+@SuppressWarnings({"unused", "NullableProblems"})
 public class DoubleJumpEvent extends PlayerEvent {
 
     private static final HandlerList handlers = new HandlerList();

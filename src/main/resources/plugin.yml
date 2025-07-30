@@ -1,6 +1,20 @@
 name: SDJ
-version: '0.1.0'
 main: me.rarehyperion.simpledoublejump.SDJ
-api-version: '1.21'
+authors: [RareHyperIon]
+version: '0.1.0'
+api-version: '1.13'
 load: STARTUP
-authors: [ RareHyperIon ]
+
+commands:
+  sdj:
+    description: "Reload the plugins configuration."
+    permission: sdj.admin
+    usage: /sdj reload
+
+permissions:
+  sdj.admin:
+    description: "Allows for reloading the plugins configuration."
+    default: op
+  sdj.use:
+    description: "Allows you to double jump."
+    default: op

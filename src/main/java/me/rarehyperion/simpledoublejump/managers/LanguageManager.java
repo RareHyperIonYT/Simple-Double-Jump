@@ -1,6 +1,6 @@
 package me.rarehyperion.simpledoublejump.managers;
 
-import org.bukkit.ChatColor;
+import me.rarehyperion.simpledoublejump.utils.MessageUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -51,18 +51,10 @@ public class LanguageManager {
         return this.get("cooldown", null);
     }
 
-    public String get(final String key) {
-        return this.config.getString(key);
-    }
-
     public String get(final String key, final String def) {
         final String str = this.config.getString(key, def);
         if(str == null) return null;
-        return ChatColor.translateAlternateColorCodes('&', str);
-    }
-
-    public String withPrefix(final String str) {
-        return this.get("prefix", "&b&lSDJ &r") + " " + str;
+        return MessageUtil.format(str);
     }
 
 }

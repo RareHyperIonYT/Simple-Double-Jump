@@ -41,10 +41,6 @@ public class CooldownManager {
         }
     }
 
-    public void remove(final Player player) {
-        this.cooldowns.remove(player.getUniqueId());
-    }
-
     public void clear() {
         this.cooldowns.clear();
     }

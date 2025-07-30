@@ -32,3 +32,18 @@ jump-settings:
   # The upward velocity applied when performing a double jumping.
   # Measured in blocks per tick; increase for a stronger vertical boost.
   vertical-velocity: 0.42
+
+  # Double jump effects configuration.
+  effects:
+    sound:
+      # Whether sound effects should be played whenever you double jump.
+      enabled: true
+
+      # The vanilla Minecraft sound to play whenever double jumping.
+      source: "entity.ender_dragon.flap"
+
+      # The volume level for the sound effect (0.0 to 1.0).
+      volume: 0.5
+
+      # The pitch modifier for the sound effect (0.0 to 2.0).
+      pitch: 1.32

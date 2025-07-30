@@ -12,6 +12,10 @@ public class ConfigManager {
     private boolean preserveFallDamage, avoidFlyConflicts, hardenedGroundCheck;
     private int cooldownTicks, hungerDrain;
 
+    private boolean soundEffects;
+    private float soundVolume, soundPitch;
+    private String soundSource;
+
     private ActivationMethod activationMethod;
 
     public ConfigManager(final JavaPlugin plugin) {
@@ -40,6 +44,12 @@ public class ConfigManager {
 
         this.horizontalForceMultiplier = config.getDouble("jump-settings.horizontal-force-multiplier", 0.42);
         this.verticalVelocity = config.getDouble("jump-settings.vertical-velocity", 0.42);
+
+        // Jump SFX
+        this.soundEffects = config.getBoolean("jump-settings.effects.sound.enabled", true);
+        this.soundSource = config.getString("jump-settings.effects.sound.source", "entity.ender_dragon.flap");
+        this.soundVolume = (float) config.getDouble("jump-settings.effects.volume", 0.5D);
+        this.soundPitch = (float) config.getDouble("jump-settings.effects.pitch", 1.32D);
     }
 
     public void reload() {
@@ -58,6 +68,10 @@ public class ConfigManager {
         return this.hardenedGroundCheck;
     }
 
+    public boolean shouldPlaySoundEffects() {
+        return this.soundEffects;
+    }
+
     public int getCooldownTicks() {
         return this.cooldownTicks;
     }
@@ -72,6 +86,18 @@ public class ConfigManager {
 
     public double getVerticalVelocity() {
         return this.verticalVelocity;
+    }
+
+    public float getSoundVolume() {
+        return this.soundVolume;
+    }
+
+    public float getSoundPitch() {
+        return this.soundPitch;
+    }
+
+    public String getSoundSource() {
+        return this.soundSource;
     }
 
     public ActivationMethod getActivationMethod() {

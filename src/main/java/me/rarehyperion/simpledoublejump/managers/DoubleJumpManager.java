@@ -1,5 +1,6 @@
 package me.rarehyperion.simpledoublejump.managers;
 
+import com.cryptomorin.xseries.XSound;
 import me.rarehyperion.simpledoublejump.api.events.DoubleJumpEvent;
 import me.rarehyperion.simpledoublejump.api.events.JumpReason;
 import me.rarehyperion.simpledoublejump.enums.ActivationMethod;
@@ -114,6 +115,18 @@ public class DoubleJumpManager {
             if(insufficientHungerMessage == null) return false;
             player.sendMessage(insufficientHungerMessage);
             return false;
+        }
+
+        if(this.configManager.shouldPlaySoundEffects()) {
+            final XSound.Record record = XSound.parse(this.configManager.getSoundSource());
+
+            if(record != null) {
+                record.withVolume(this.configManager.getSoundVolume());
+                record.withPitch(this.configManager.getSoundPitch());
+
+                final XSound.SoundPlayer sound = record.soundPlayer().forPlayers(player);
+                sound.play();
+            }
         }
 
         this.applyForces(player);

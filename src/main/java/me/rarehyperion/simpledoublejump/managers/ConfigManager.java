@@ -12,9 +12,16 @@ public class ConfigManager {
     private boolean preserveFallDamage, avoidFlyConflicts, hardenedGroundCheck;
     private int cooldownTicks, hungerDrain;
 
+    // SFX
     private boolean soundEffects;
     private float soundVolume, soundPitch;
     private String soundSource;
+
+    // VFX
+    private boolean particleEffects;
+    private int particleCount;
+    private double particleSpread;
+    private String particleType;
 
     private ActivationMethod activationMethod;
 
@@ -48,8 +55,14 @@ public class ConfigManager {
         // Jump SFX
         this.soundEffects = config.getBoolean("jump-settings.effects.sound.enabled", true);
         this.soundSource = config.getString("jump-settings.effects.sound.source", "entity.ender_dragon.flap");
-        this.soundVolume = (float) config.getDouble("jump-settings.effects.volume", 0.5D);
-        this.soundPitch = (float) config.getDouble("jump-settings.effects.pitch", 1.32D);
+        this.soundVolume = (float) config.getDouble("jump-settings.effects.sound.volume", 0.5D);
+        this.soundPitch = (float) config.getDouble("jump-settings.effects.sound.pitch", 1.32D);
+
+        // Jump VFX
+        this.particleEffects = config.getBoolean("jump-settings.effects.particles.enabled", true);
+        this.particleType = config.getString("jump-settings.effects.particles.type", "CLOUD").toUpperCase();
+        this.particleCount = config.getInt("jump-settings.effects.particles.count", 40);
+        this.particleSpread = config.getDouble("jump-settings.effects.particles.spread", 0.25D);
     }
 
     public void reload() {
@@ -72,6 +85,10 @@ public class ConfigManager {
         return this.soundEffects;
     }
 
+    public boolean shouldSpawnParticleEffects() {
+        return this.particleEffects;
+    }
+
     public int getCooldownTicks() {
         return this.cooldownTicks;
     }
@@ -80,12 +97,20 @@ public class ConfigManager {
         return this.hungerDrain;
     }
 
+    public int getParticleCount() {
+        return this.particleCount;
+    }
+
     public double getHorizontalForceMultiplier() {
         return this.horizontalForceMultiplier;
     }
 
     public double getVerticalVelocity() {
         return this.verticalVelocity;
+    }
+
+    public double getParticleSpread() {
+        return this.particleSpread;
     }
 
     public float getSoundVolume() {
@@ -98,6 +123,10 @@ public class ConfigManager {
 
     public String getSoundSource() {
         return this.soundSource;
+    }
+
+    public String getParticleType() {
+        return this.particleType;
     }
 
     public ActivationMethod getActivationMethod() {

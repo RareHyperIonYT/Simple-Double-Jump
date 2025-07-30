@@ -47,3 +47,16 @@ jump-settings:
 
       # The pitch modifier for the sound effect (0.0 to 2.0).
       pitch: 1.32
+
+    particles:
+      # Whether particle effects should be displayed whenever you double jump.
+      enabled: true
+
+      # The vanilla Minecraft particle to spawn whenever double jumping.
+      type: "CLOUD"
+
+      # The number of particles to spawn per double jump.
+      count: 30
+
+      # How far particles can spread from the players position.
+      spread: 0.25

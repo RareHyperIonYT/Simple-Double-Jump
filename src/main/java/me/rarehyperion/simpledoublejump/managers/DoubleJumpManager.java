@@ -1,11 +1,14 @@
 package me.rarehyperion.simpledoublejump.managers;
 
 import com.cryptomorin.xseries.XSound;
+import com.cryptomorin.xseries.particles.XParticle;
 import me.rarehyperion.simpledoublejump.api.events.DoubleJumpEvent;
 import me.rarehyperion.simpledoublejump.api.events.JumpReason;
 import me.rarehyperion.simpledoublejump.enums.ActivationMethod;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -118,7 +121,8 @@ public class DoubleJumpManager {
         }
 
         if(this.configManager.shouldPlaySoundEffects()) {
-            final XSound.Record record = XSound.parse(this.configManager.getSoundSource());
+            final String soundSource = this.configManager.getSoundSource();
+            final XSound.Record record = XSound.parse(soundSource);
 
             if(record != null) {
                 record.withVolume(this.configManager.getSoundVolume());
@@ -126,6 +130,23 @@ public class DoubleJumpManager {
 
                 final XSound.SoundPlayer sound = record.soundPlayer().forPlayers(player);
                 sound.play();
+            } else {
+                this.plugin.getLogger().warning(String.format("The sound '%s' does not exist.", soundSource));
+            }
+        }
+
+        if(this.configManager.shouldSpawnParticleEffects()) {
+            final String particleType = this.configManager.getParticleType();
+            final Particle particle = XParticle.valueOf(particleType).get();
+
+            if(particle != null) {
+                final int particleCount = this.configManager.getParticleCount();
+                final double particleSpread = this.configManager.getParticleSpread();
+
+                final Location spawnLocation = player.getLocation().clone().subtract(0.0D, 0.5D, 0.0D);
+                player.spawnParticle(particle, spawnLocation, particleCount, particleSpread, particleSpread, particleSpread, 0.0D);
+            } else {
+                this.plugin.getLogger().warning(String.format("The particle '%s' does not exist.", particleType));
             }
         }
 

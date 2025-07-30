@@ -11,11 +11,9 @@ hardenedGroundCheck: false
 # When double jumping should be allowed:
 #   ALL        - Available to everyone.
 #   PERMISSION - Players need a specific permission.
-#   ITEM       - Granted via custom item abilities powered by our API.
 activationMethod: "ALL"
 
 # Technical double jump configuration.
-# API integrations may override these settings.
 jump-settings:
   # Delay between consecutive double jumps (in server ticks; 20 ticks = 1 second).
   # To disable double jump cooldowns, set this value to 0 or less.

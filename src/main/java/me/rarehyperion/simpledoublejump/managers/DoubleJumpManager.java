@@ -45,20 +45,11 @@ public class DoubleJumpManager {
 
         final ActivationMethod method = this.configManager.getActivationMethod();
 
-        switch (method) {
-            case PERMISSION -> {
-                return player.hasPermission("sdj.use");
-            }
-
-            case ITEM -> {
-                // TODO: Implement API usage to get registered items.
-                return false;
-            }
-
-            default -> {
-                return true;
-            }
+        if (method == ActivationMethod.PERMISSION) {
+            return player.hasPermission("sdj.use");
         }
+
+        return true;
     }
 
     public boolean isPrimed(final Player player) {

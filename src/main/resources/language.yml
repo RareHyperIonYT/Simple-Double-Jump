@@ -1,3 +1,8 @@
 reload: "&aConfiguration successfully reloaded!"
 no-permission: "&cYou don't have permission to run this command."
+players-only: "&cYou cannot run this command via the console."
 cooldown: "&cYou must wait &e<cooldown>&c seconds before double jumping again!"
+
+exempt-toggle:
+  on: "&aDouble jumping enabled."
+  off: "&cDouble jumping disabled."

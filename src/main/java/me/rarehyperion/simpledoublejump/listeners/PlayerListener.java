@@ -64,6 +64,9 @@ public class PlayerListener implements Listener {
     public void onPlayerMove(final PlayerMoveEvent event) {
         final Player player = event.getPlayer();
 
+        if(this.jumpManager.getExemptPlayers().contains(player.getUniqueId()))
+            return;
+
         final boolean onGround = this.configManager.shouldHardenGroundChecks()
                 ? LocationUtil.onGround(player.getLocation())
                 : player.isOnGround();

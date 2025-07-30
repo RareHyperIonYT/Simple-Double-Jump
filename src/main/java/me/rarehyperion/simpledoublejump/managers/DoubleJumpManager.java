@@ -27,6 +27,8 @@ public class DoubleJumpManager {
     private final LanguageManager languageManager;
     private final Set<UUID> primed;
 
+    private final Set<UUID> exempt = new HashSet<>();
+
     public DoubleJumpManager(final JavaPlugin plugin, final ConfigManager configManager, final LanguageManager languageManager, final CooldownManager cooldownManager, final PluginManager pluginManager) {
         this.plugin = plugin;
         this.configManager = configManager;
@@ -43,6 +45,10 @@ public class DoubleJumpManager {
             return false;
         }
 
+        return this.hasPermission(player);
+    }
+
+    public boolean hasPermission(final Player player) {
         final ActivationMethod method = this.configManager.getActivationMethod();
 
         if (method == ActivationMethod.PERMISSION) {
@@ -158,6 +164,22 @@ public class DoubleJumpManager {
             final int currentLevel = player.getFoodLevel();
             player.setFoodLevel(Math.max(0, currentLevel - hungerDrain));
         }
+    }
+
+    public void toggleExemption(final Player player) {
+        final UUID uuid = player.getUniqueId();
+
+        if(this.exempt.contains(uuid)) {
+            this.exempt.remove(uuid);
+            player.sendMessage(this.languageManager.getToggleOn());
+        } else {
+            this.exempt.add(uuid);
+            player.sendMessage(this.languageManager.getToggleOff());
+        }
+    }
+
+    public Set<UUID> getExemptPlayers() {
+        return this.exempt;
     }
 
 }

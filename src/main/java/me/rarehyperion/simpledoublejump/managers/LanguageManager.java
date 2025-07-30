@@ -57,4 +57,16 @@ public class LanguageManager {
         return MessageUtil.format(str);
     }
 
+    public String getPlayerOnlyMessage() {
+        return this.get("player-only", "&cYou cannot run this command via the console.");
+    }
+
+    public String getToggleOn() {
+        return this.get("exempt-toggle.on", "&aDouble jumping enabled.");
+    }
+
+    public String getToggleOff() {
+        return this.get("exempt-toggle.off", "&cDouble jumping disabled.");
+    }
+
 }

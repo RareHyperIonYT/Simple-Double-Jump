@@ -41,7 +41,7 @@ public final class SDJ extends JavaPlugin implements Listener {
 
         pm.registerEvents(new PlayerListener(this.configManager, jumpManager), this);
 
-        final SDJCommand executor = new SDJCommand(this, this.languageManager);
+        final SDJCommand executor = new SDJCommand(this, jumpManager, this.languageManager);
         final PluginCommand command = Objects.requireNonNull(this.getCommand("sdj"));
 
         command.setExecutor(executor);

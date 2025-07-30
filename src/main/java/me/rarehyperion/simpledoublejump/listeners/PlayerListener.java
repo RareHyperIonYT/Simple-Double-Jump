@@ -68,6 +68,11 @@ public class PlayerListener implements Listener {
                 ? LocationUtil.onGround(player.getLocation())
                 : player.isOnGround();
 
+        // Prevent the player from sprinting if they are hungry.
+        // This is needed because allowFlight allows sprinting during hunger.
+        if(player.getFoodLevel() < 6)
+            return;
+
         if(onGround) {
             if(player.getAllowFlight())
                 return;

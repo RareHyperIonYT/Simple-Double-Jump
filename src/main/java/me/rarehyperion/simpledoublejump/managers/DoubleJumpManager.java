@@ -113,13 +113,6 @@ public class DoubleJumpManager {
         if(doubleJumpEvent.isCancelled())
             return false;
 
-        if(player.getFoodLevel() < 6) {
-            final String insufficientHungerMessage = this.languageManager.getInsufficientHungerMessage();
-            if(insufficientHungerMessage == null) return false;
-            player.sendMessage(insufficientHungerMessage);
-            return false;
-        }
-
         if(this.configManager.shouldPlaySoundEffects()) {
             final String soundSource = this.configManager.getSoundSource();
             final XSound.Record record = XSound.parse(soundSource);

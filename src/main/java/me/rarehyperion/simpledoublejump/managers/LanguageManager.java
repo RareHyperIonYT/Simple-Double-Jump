@@ -51,10 +51,6 @@ public class LanguageManager {
         return this.get("cooldown", null);
     }
 
-    public String getInsufficientHungerMessage() {
-        return this.get("insufficient-hunger", null);
-    }
-
     public String get(final String key) {
         return this.config.getString(key);
     }

@@ -31,7 +31,45 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.3</version>
+                <version>3.6.0</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.cryptomorin.xseries</pattern>
+                            <shadedPattern>me.rarehyperion.simpledoublejump.utils.xseries</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>com/cryptomorin/xseries/NoteBlockMusic*</exclude>
+                                <exclude>com/cryptomorin/xseries/XBiome*</exclude>
+                                <exclude>com/cryptomorin/xseries/XMaterial*</exclude>
+                                <exclude>com/cryptomorin/xseries/XPattern*</exclude>
+                                <exclude>com/cryptomorin/xseries/XItem*</exclude>
+                                <exclude>com/cryptomorin/xseries/XAttribute*</exclude>
+                                <exclude>com/cryptomorin/xseries/Abstract*</exclude>
+                                <exclude>com/cryptomorin/xseries/XBlock*</exclude>
+                                <exclude>com/cryptomorin/xseries/XEnchantment*</exclude>
+                                <exclude>com/cryptomorin/xseries/XEntity*</exclude>
+                                <exclude>com/cryptomorin/xseries/XEntityType*</exclude>
+                                <exclude>com/cryptomorin/xseries/XItemStack*</exclude>
+                                <exclude>com/cryptomorin/xseries/XPotion*</exclude>
+                                <exclude>com/cryptomorin/xseries/XTag*</exclude>
+                                <exclude>com/cryptomorin/xseries/XWorldBorder*</exclude>
+                                <exclude>com/cryptomorin/xseries/particles/ParticleDisplay*</exclude>
+                                <exclude>com/cryptomorin/xseries/particles/Particles*</exclude>
+                                <exclude>com/cryptomorin/xseries/abstractions/**</exclude>
+                                <exclude>com/cryptomorin/xseries/messages/**</exclude>
+                                <exclude>com/cryptomorin/xseries/art/**</exclude>
+                                <exclude>com/cryptomorin/xseries/inventory/**</exclude>
+                                <exclude>com/cryptomorin/xseries/profiles/**</exclude>
+                                <exclude>com/cryptomorin/xseries/reflection/**</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>

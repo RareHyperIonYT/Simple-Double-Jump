@@ -1,0 +1,124 @@
+# Simple Double Jump
+
+Adds a fully customizable double-jump mechanic to your game.
+
+## Features
+
+- **Customizable Jump Mechanics**
+  - Horizontal & Vertical force multipliers
+  - Hunger Drain
+  - Cooldown
+- **Audio & Visual Effects**
+  - Play any vanilla sound on jump.
+  - Spawn configurable particles on jump.
+- **Preserve Fall Damage**
+  - Toggle whether players keep fall damage after a double jump.
+- **Fly Conflict Prevention**
+  - Automatically disables double jump whilst /fly is enabled to avoid conflicts.
+
+## Commands
+
+| Command       | Description                 | Permission  | Default |
+|---------------|-----------------------------|-------------|---------|
+| `/sdj reload` | Reload plugin configuration | `sdj.admin` | `op`    |
+
+## Permissions
+
+| Permission   | Description                  | Default |
+|--------------|------------------------------|---------|
+| `sdj.admin`  | Reload the plugin’s config   | `op`    |
+| `sdj.use`    | Allow players to double jump | `op`    |
+
+
+
+## Configuration
+
+<details>
+  <summary>config.yml</summary>
+
+  ```yml
+  # Whether players keep fall damage after performing a double jump.
+  preserveFallDamage: true
+  
+  # Prevents conflicts with flying abilities.
+  avoidFlyConflicts: true
+  
+  # Use server-side ground detection instead of trusting client packets.
+  # Prevents exploits but may cause slight delays on high-latency connections.
+  hardenedGroundCheck: false
+  
+  # When double jumping should be allowed:
+  #   ALL        - Available to everyone.
+  #   PERMISSION - Players need a specific permission.
+  activationMethod: "PERMISSION"
+  
+  # Technical double jump configuration.
+  jump-settings:
+    # Delay between consecutive double jumps (in server ticks; 20 ticks = 1 second).
+    # To disable double jump cooldowns, set this value to 0 or less.
+    cooldown-ticks: 0
+  
+    # The amount of hunger points that should be deducted per double jump.
+    # 1 point = half a drumstick; set to 0 to disable hunger drain.
+    hunger-drain: 1
+  
+    # Factor applied to the normalised look vector to compute horizontal velocity.
+    # In simpler terms, increasing this value makes you travel farther horizontally.
+    horizontal-force-multiplier: 0.5
+  
+    # The upward velocity applied when performing a double jumping.
+    # Measured in blocks per tick; increase for a stronger vertical boost.
+    vertical-velocity: 0.42
+  
+    # Double jump effects configuration.
+    effects:
+      sound:
+        # Whether sound effects should be played whenever you double jump.
+        enabled: true
+  
+        # The vanilla Minecraft sound to play whenever double jumping.
+        source: "entity.ender_dragon.flap"
+  
+        # The volume level for the sound effect (0.0 to 1.0).
+        volume: 0.5
+  
+        # The pitch modifier for the sound effect (0.0 to 2.0).
+        pitch: 1.32
+  
+      particles:
+        # Whether particle effects should be displayed whenever you double jump.
+        enabled: true
+  
+        # The vanilla Minecraft particle to spawn whenever double jumping.
+        type: "CLOUD"
+  
+        # The number of particles to spawn per double jump.
+        count: 30
+  
+        # How far particles can spread from the players position.
+        spread: 0.25
+  ```
+
+</details>
+
+<details>
+  <summary>language.yml</summary>
+
+  ```yml
+  reload: "&aConfiguration successfully reloaded!"
+  no-permission: "&cYou don't have permission to run this command."
+  players-only: "&cYou cannot run this command via the console."
+  cooldown: "&cYou must wait &e<cooldown>&c seconds before double jumping again!"
+
+  exempt-toggle:
+    on: "&aDouble jumping enabled."
+    off: "&cDouble jumping disabled."
+  ```
+
+</details>
+
+## Support & License
+
+⭐ If you find this project useful, consider giving it a star on GitHub!
+
+📜 This project is under the [MIT License](LICENSE).

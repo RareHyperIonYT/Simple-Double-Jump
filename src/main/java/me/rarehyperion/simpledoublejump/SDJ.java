@@ -1,5 +1,7 @@
 package me.rarehyperion.simpledoublejump;
 
+import com.cryptomorin.xseries.XSound;
+import com.cryptomorin.xseries.particles.XParticle;
 import me.rarehyperion.simpledoublejump.commands.SDJCommand;
 import me.rarehyperion.simpledoublejump.listeners.PlayerListener;
 import me.rarehyperion.simpledoublejump.managers.ConfigManager;
@@ -22,8 +24,14 @@ public final class SDJ extends JavaPlugin implements Listener {
     private CooldownManager cooldownManager;
 
     @Override
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void onLoad() {
         VERSION = this.getDescription().getVersion();
+
+        // Weird issue with XSeries... It's too bulky and needs cached, lol.
+        // This prevents the first ever double jump from being delayed in the current server session.
+        XSound.getValues();
+        XParticle.values();
     }
 
     @Override
